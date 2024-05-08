@@ -12,8 +12,9 @@ let expencesRate = document.querySelector('#expences_rate');
 const formatter = new Intl.NumberFormat('en-US');
 let procentOfIncome=0
 
-console.log(incomeValue);
 addTransactionsBtn.addEventListener('click', addTransactions);
+
+
 
 function addTransactions() {
     if(selectOperation.value == 'Plus'){
