@@ -1,3 +1,73 @@
 body{
     margin: 0;
 }
+
+.available_section{
+    position: relative;
+    background-image: url('./images/avail_img.jpeg');
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+.income, .expences {
+    display: flex;
+    padding: 10px;
+    align-items: center;
+}
+
+.mask {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #00000070;
+    z-index: 0;
+}
+
+.available_content{
+    z-index: 1;
+    width: 35%;
+    text-align: center;
+    padding-block: 30px;
+}
+
+.available_content>*{
+    margin-block: 10px;
+}
+
+div#amount {
+    text-align: center;
+    font-size: 3rem;
+}
+
+#income_text, #expences_text {
+    flex: 3;
+    text-align: left;
+    text-transform: uppercase;
+    color: black;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+#income_value, #expences_value {
+    flex: 2;
+    text-align: right;
+}
+
+#income_rate, #expences_rate {
+    flex: 1;
+    text-align: right;
+}
+
+.income {
+    background: #32A5A1;
+    box-shadow: 0 0 10px 0 #32a5a2;
+}
+
+.expences {
+    background: #F63237;
+    box-shadow: 0 0 10px 0 #f73237;
+}
