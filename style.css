@@ -1,0 +1,53 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.secondSection {
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: #e3e3e3;
+}
+
+.selectedPlusMinus {
+    height: 37px;
+    width: 50px;
+    padding: 5px 5px 5px 10px;
+
+
+}
+
+.description {
+    width: 300px;
+    height: 40px;
+    margin: 10px;
+    padding: 5px 5px 5px 10px;
+    border-radius: 5px;
+
+}
+
+
+.value {
+    width: 80px;
+    height: 40px;
+    border-radius: 5px;
+    border-style: none;
+    padding: 5px 5px 5px 10px;
+    margin: 10px;
+}
+
+.checkButton {
+    width: 50px;
+    height: 34px;
+    margin: 10px;
+    background-color: rgb(227, 227, 227);
+    border-style: none;
+
+}
+
+.fa-regular {
+    font-size: 30px;
+}
