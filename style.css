@@ -29,7 +29,7 @@ body{
 
 .available_content{
     z-index: 1;
-    width: 35%;
+    min-width: 350px;
     text-align: center;
     padding-block: 30px;
 }
@@ -83,6 +83,8 @@ div#amount {
     align-items: center;
     justify-content: center;
     background-color: #e3e3e3;
+    gap: 15px;
+    padding-block: 10px;
 }
 
 .selectedPlusMinus {
@@ -90,13 +92,17 @@ div#amount {
     width: 50px;
     padding: 5px 5px 5px 10px;
 
+    appearance: none;
+    background-image: url('./images/select-arrows.svg');
+    background-repeat: no-repeat;
+    background-position: right 0.5rem top 50%;
+    background-size: 0.65rem auto;
 
 }
 
 .description {
     width: 300px;
     height: 40px;
-    margin: 10px;
     padding: 5px 5px 5px 10px;
     border-radius: 5px;
 
@@ -109,13 +115,11 @@ div#amount {
     border-radius: 5px;
     border-style: none;
     padding: 5px 5px 5px 10px;
-    margin: 10px;
 }
 
 .checkButton {
     width: 50px;
     height: 34px;
-    margin: 10px;
     background-color: rgb(227, 227, 227);
     border-style: none;
 
