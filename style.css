@@ -1,5 +1,9 @@
 body {
     margin: 0;
+    font-family: "Exo 2", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
 }
 
 .available_section {
@@ -50,8 +54,8 @@ div#amount {
     text-align: left;
     text-transform: uppercase;
     color: black;
-    font-size: 0.8rem;
-    font-weight: bold;
+    font-size: 0.73rem;
+    font-weight: 500;
 }
 
 #income_value,
@@ -90,13 +94,19 @@ div#amount {
     background-color: #e3e3e3;
     gap: 15px;
     padding-block: 10px;
+
 }
 
 .selectedPlusMinus {
     height: 37px;
     width: 50px;
     padding: 5px 5px 5px 10px;
-
+    border-style: none;
+    border-radius: 5px;
+    font-family: "Exo 2", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
     appearance: none;
     background-image: url('./images/select-arrows.svg');
     background-repeat: no-repeat;
@@ -110,6 +120,10 @@ div#amount {
     height: 40px;
     padding: 5px 5px 5px 10px;
     border-radius: 5px;
+    font-family: "Exo 2", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
 
 }
 
@@ -120,6 +134,10 @@ div#amount {
     border-radius: 5px;
     border-style: none;
     padding: 5px 5px 5px 10px;
+    font-family: "Exo 2", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
 }
 
 .checkButton {
@@ -162,7 +180,10 @@ div#amount {
     padding: 5px;
     border-bottom: 1px solid;
     font-size: large;
-
+    font-family: "Exo 2", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
 
 
 }
@@ -172,6 +193,10 @@ div#amount {
     padding: 5px;
     border-bottom: 1px solid;
     font-size: large;
+    font-family: "Exo 2", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
 
 }
 
@@ -181,6 +206,10 @@ div#amount {
     display: flex;
     flex: 1;
     margin: 10px;
+    font-family: "Exo 2", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
 
 }
 
@@ -213,3 +242,5 @@ div#amount {
 .moneyExpenses {
     color: red;
 }
+
+.poetsen-one-regular {}
