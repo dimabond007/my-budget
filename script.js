@@ -11,18 +11,37 @@ let expensesValue = document.querySelector('#expences_value');
 let expencesRate = document.querySelector('#expences_rate');
 const formatter = new Intl.NumberFormat('en-US');
 let procentOfIncome=0;
-let income_list = document.querySelectorAll('#income_list');
-let expenses_list = document.querySelectorAll('#expenses_list');
+let income_list = document.querySelector('#income_list');
+let expenses_list = document.querySelector('#expenses_list');
+let arr_transaction = [];
+flagLoad = true;
+
+// [
+//     {
+//         'operation': '+',
+//         'value': 0,
+//         'description': '',
+//     },
+//     {
+//         'operation': '+',
+//         'value': 0,
+//         'description': '',
+//     },
+//     {
+//         'operation': '+',
+//         'value': 0,
+//         'description': '',
+//     },
+// ]
 
 addTransactionsBtn.addEventListener('click', addTransactions);
 
 
-
 function addTransactions() {
-    if(selectOperation.value == 'Plus'){
-        addIncome();
+    if(selectOperation.value == '+'){
+        addIncome(descriptionOperation.value ,valueOperation.value);
     }
-    else if(selectOperation.value == 'Minus'){
+    else if(selectOperation.value == '-'){
         addExpenses();
         expencesRate.innerHTML = procentOfIncome + '%';
     }
@@ -34,13 +53,65 @@ function addTransactions() {
     console.log(all_budget)
 }
 
-function addIncome() {
-    all_budget += Number(valueOperation.value);
-    income += Number(valueOperation.value);
+function addIncome(descVal, valOper) {
+    if(!flagLoad)
+        addToLocalStorage();
+    
+    console.log(arr_transaction);
+    all_budget += Number(valOper);
+    income += Number(valOper);
+
+    let new_row = document.createElement('div');
+    new_row.className = 'rowWrapper';
+
+    let h2desc = document.createElement('div');
+    h2desc.innerHTML = descVal;
+    h2desc.className = 'headerH2';
+    new_row.appendChild(h2desc);
+
+    let moneyincome = document.createElement('div');
+    moneyincome.className = 'money moneyIncome';
+    moneyincome.innerHTML = valOper + '$';
+    new_row.appendChild(moneyincome);
+
+    income_list.appendChild(new_row)
 }
 
 function addExpenses() {
+    if(!flagLoad)
+        addToLocalStorage();
+    
     all_budget -= Number(valueOperation.value);
     expenses += Number(valueOperation.value);
     procentOfIncome = Math.floor((expenses/income)*100);
 }
+
+function addToLocalStorage(){
+    let objTransaction = {
+        'operation': selectOperation.value,
+        'value': valueOperation.value,
+        'description': descriptionOperation.value
+    }
+    arr_transaction.push(objTransaction);
+
+    localStorage.setItem('transaction', JSON.stringify(arr_transaction));
+}
+
+function loadData(){
+    flagLoad = true;
+    let data = JSON.parse(localStorage.getItem('transaction'));
+    console.log(data);
+    if(data){
+        for(let i=0; i<data.length; i++){
+            if(data[i].operation == '+'){
+                addIncome(data[i].description,data[i].value);
+            }
+            else if(data[i].operation == '-'){
+                addExpenses();
+            }
+        }
+    }
+    flagLoad = false;
+}
+
+loadData();
