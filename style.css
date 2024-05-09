@@ -118,7 +118,7 @@ div#amount {
 .description {
     width: 300px;
     height: 40px;
-    padding: 5px 5px 5px 10px;
+    /* padding: 5px 5px 5px 10px; */
     border-radius: 5px;
     font-family: "Exo 2", sans-serif;
     font-optical-sizing: auto;
@@ -171,6 +171,7 @@ div#amount {
 .rightDiv {
     width: 50%;
     padding: 15px 10px 0 10px;
+
 }
 
 
@@ -215,7 +216,6 @@ div#amount {
 
 .rowWrapper {
     display: flex;
-
 }
 
 .precentage {
@@ -241,6 +241,9 @@ div#amount {
 
 .moneyExpenses {
     color: red;
+
 }
 
-.poetsen-one-regular {}
+.displayFlex {
+    display: flex;
+}
