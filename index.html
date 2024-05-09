@@ -7,6 +7,11 @@
     <title>Document</title>
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Poetsen+One&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
@@ -30,8 +35,8 @@
 
     <section class="secondSection">
         <select class="selectedPlusMinus">
-            <option value="Plus">+</option>
-            <option value="Minus">-</option>
+            <option value="+">+</option>
+            <option value="-">-</option>
 
         </select>
         <input type="text" placeholder="Add Description" id="descriptionOperation" class="description input">
@@ -42,25 +47,13 @@
     </section>
 
     <section class="thirdSection">
-        <div class="leftDiv">
-            <h1 class="incomeH1">Income</h1>
-            <div class=rowWrapper>
-                <h2 class="headerH2">website project</h2>
-                <h3 class="money moneyIncome">1500$</h3>
-
-            </div>
+        <div class="leftDiv" id="income_list">
+            <h2 class="incomeH1">Income</h1>
+            
         </div>
-        <div class="rightDiv">
-
+        <div class="rightDiv" id="expenses_list">
             <h2 class="expensesH1">expenses</h2>
-            <div class=rowWrapper>
-
-                <h2 class="headerH2">rent</h2>
-                <h3 class="money moneyExpenses">1500$</h3>
-                <h3 class="precentage ">
-                    15%
-                </h3>
-            </div>
+            
         </div>
     </section>
 
