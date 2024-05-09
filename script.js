@@ -10,7 +10,9 @@ let incomeValue = document.querySelector('#income_value');
 let expensesValue = document.querySelector('#expences_value');
 let expencesRate = document.querySelector('#expences_rate');
 const formatter = new Intl.NumberFormat('en-US');
-let procentOfIncome=0
+let procentOfIncome=0;
+let income_list = document.querySelectorAll('#income_list');
+let expenses_list = document.querySelectorAll('#expenses_list');
 
 addTransactionsBtn.addEventListener('click', addTransactions);
 
