@@ -16,6 +16,7 @@ let procentOfIncome = 0;
 let income_list = document.querySelector('#income_list');
 let expenses_list = document.querySelector('#expenses_list');
 let arr_transaction = [];
+let id_transaction = 0;
 flagLoad = true;
 
 addTransactionsBtn.addEventListener('click', addTransactions);
@@ -25,7 +26,7 @@ loadData();
 secondSectionJS.classList.add('greenSection');
 
 function addTransactions() {
-    let id_transaction = generate_id();
+    id_transaction = generate_id();
     if (selectOperation.value == '+') {
         addIncome(id_transaction, descriptionOperation.value, valueOperation.value);
     } else if (selectOperation.value == '-') {
@@ -121,6 +122,7 @@ function addExpenses(id, descVal, valOper) {
     btnDelete.className = 'btnDelete ';
     btnDelete.innerHTML = '<i class="fa-regular fa-circle-xmark"></i>';
     btnDelete.dataset.id = id;
+    btnDelete.className = 'btnDelete';
     btnDelete.addEventListener('click', deleteOperations);
     newRow.appendChild(btnDelete);
 
@@ -129,13 +131,25 @@ function addExpenses(id, descVal, valOper) {
 }
 
 function deleteOperations(event) {
-    let targetElement = this;
-    let deleteRow = document.querySelector(`.rowWrapper[data-id="${targetElement.dataset.id}"]`)
+
+    let deleteId = this.dataset.id;
+    let deleteRow = document.querySelector(`.rowWrapper[data-id="${deleteId}"]`)
+
+
+    for (let i = 0; i < arr_transaction.length; i++) {
+        if (arr_transaction[i].id == deleteId) {
+            arr_transaction.splice(i, 1);
+            break;
+        }
+    }
+    localStorage.setItem('transaction', JSON.stringify(arr_transaction));
     deleteRow.remove();
+    console.log(deleteRow);
 }
 
 function addToLocalStorage() {
-    let id_oper = arr_transaction != null ? arr_transaction.length + 1 : 0;
+    console.log(arr_transaction);
+    let id_oper = id_transaction;
     let objTransaction = {
         'id': id_oper,
         'operation': selectOperation.value,
