@@ -133,7 +133,11 @@ function addExpenses(id,descVal, valOper) {
 }
 
 function deleteOperations(event) {
-    
+    let targetElement = event.target || event.srcElement;
+    let deleteRow =document.querySelector(`.rowWrapper[data-id="${targetElement.dataset.id}"]`)
+    deleteRow.remove();
+
+    console.log(deleteRow);
 }
 
 function addToLocalStorage() {
