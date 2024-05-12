@@ -15,6 +15,7 @@ let procentOfIncome = 0;
 let income_list = document.querySelector('#income_list');
 let expenses_list = document.querySelector('#expenses_list');
 let arr_transaction = [];
+let id_transaction = 0;
 flagLoad = true;
 
 addTransactionsBtn.addEventListener('click', addTransactions);
@@ -26,7 +27,7 @@ loadData();
 secondSectionJS.classList.add('greenSection');
 
 function addTransactions() {
-    let id_transaction = generate_id();
+    id_transaction = generate_id();
     if (selectOperation.value == '+') {
         addIncome(id_transaction, descriptionOperation.value, valueOperation.value);
     }
@@ -84,7 +85,7 @@ function addIncome(id, descVal, valOper) {
     moneyincome.innerHTML = valOper + '$';
     new_row.appendChild(moneyincome);
 
-    let btnDelete = document.createElement('button');
+    let btnDelete = document.createElement('a');
     btnDelete.className = 'btnDelete';
     btnDelete.innerHTML = 'X';
     btnDelete.dataset.id = id; 
@@ -122,7 +123,7 @@ function addExpenses(id,descVal, valOper) {
     precentageInARow.innerHTML = "15%";
     newRow.appendChild(precentageInARow);
 
-    let btnDelete = document.createElement('button');
+    let btnDelete = document.createElement('a');
     btnDelete.className = 'btnDelete';
     btnDelete.innerHTML = 'X';
     btnDelete.dataset.id = id; 
@@ -133,16 +134,25 @@ function addExpenses(id,descVal, valOper) {
 }
 
 function deleteOperations(event) {
-    let targetElement = event.target || event.srcElement;
-    let deleteRow =document.querySelector(`.rowWrapper[data-id="${targetElement.dataset.id}"]`)
-    deleteRow.remove();
 
+    let deleteId = this.dataset.id;
+    let deleteRow =document.querySelector(`.rowWrapper[data-id="${deleteId}"]`)
+   
+
+    for (let i=0; i<arr_transaction.length; i++) {
+        if(arr_transaction[i].id == deleteId){
+            arr_transaction.splice(i, 1);
+            break;
+        }
+    }
+    localStorage.setItem('transaction', JSON.stringify(arr_transaction));
+    deleteRow.remove();
     console.log(deleteRow);
 }
 
 function addToLocalStorage() {
     console.log(arr_transaction);
-    let id_oper = arr_transaction!=null ? arr_transaction.length + 1 : 0 ;
+    let id_oper = id_transaction;
     let objTransaction = {
         'id': id_oper,
         'operation': selectOperation.value,

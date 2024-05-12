@@ -276,3 +276,18 @@ div#amount {
 .redSection .checkButton i {
     color: red;
 }
+
+#expences_rate {
+    background: #ff7074;
+    text-align: center;
+    max-width: 40px;
+    font-size: 0.8rem;
+    padding: 3px;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+#income_rate {
+    max-width: 40px;
+    margin-left: 10px;
+}
