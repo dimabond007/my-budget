@@ -236,14 +236,41 @@ div#amount {
 }
 
 .moneyIncome {
-    color: green
+    color: green;
+    font-family: "Exo 2", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-size: large;
+
 }
 
 .moneyExpenses {
     color: red;
+    font-family: "Exo 2", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 450;
+    font-size: large;
+    font-style: normal;
 
 }
 
 .displayFlex {
     display: flex;
+}
+
+.greenSection #descriptionOperation {
+    border: 2px solid green;
+}
+
+.redSection #descriptionOperation {
+    border: 2px solid red;
+}
+
+.greenSection .checkButton i {
+    color: green
+}
+
+.redSection .checkButton i {
+    color: red;
 }

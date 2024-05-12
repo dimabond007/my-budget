@@ -2,6 +2,7 @@ let all_budget = 0;
 let income = 0;
 let expenses = 0;
 let addTransactionsBtn = document.querySelector('.checkButton');
+let secondSectionJS = document.querySelector(".secondSection")
 let selectOperation = document.querySelector('.selectedPlusMinus');
 let valueOperation = document.querySelector('#valueOperation');
 let descriptionOperation = document.querySelector('#descriptionOperation');
@@ -19,14 +20,16 @@ flagLoad = true;
 
 
 addTransactionsBtn.addEventListener('click', addTransactions);
+selectOperation.addEventListener("change", redGreenToggle)
 
+secondSectionJS.classList.add('greenSection');
 
 function addTransactions() {
     if (selectOperation.value == '+') {
         addIncome(descriptionOperation.value, valueOperation.value);
     }
     else if (selectOperation.value == '-') {
-        addExpenses();
+        addExpenses(descriptionOperation.value, valueOperation.value);
 
         expencesRate.innerHTML = procentOfIncome + '%';
     }
@@ -81,7 +84,7 @@ function addExpenses(descVal, valOper) {
     newExpensesRow.appendChild(textRightDiv);
 
     let expensesMoney = document.createElement("h3");
-    expensesMoney.innerHTML = valOper;
+    expensesMoney.innerHTML = `${valOper} $`;
     expensesMoney.classList.add("money", "moneyExpenses");
     newExpensesRow.appendChild(expensesMoney);
 
@@ -107,7 +110,7 @@ function addToLocalStorage() {
 function loadData() {
     flagLoad = true;
     let data = JSON.parse(localStorage.getItem('transaction'));
-    console.log(data);
+    arr_transaction = data;
     if (data) {
         for (let i = 0; i < data.length; i++) {
             if (data[i].operation == '+') {
@@ -123,3 +126,10 @@ function loadData() {
 }
 
 loadData();
+
+function redGreenToggle() {
+    secondSectionJS.classList.toggle("greenSection");
+    secondSectionJS.classList.toggle("redSection")
+
+
+}
