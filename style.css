@@ -277,7 +277,6 @@ div#amount {
     color: red;
 }
 
-<<<<<<< HEAD
 .btnDelete {
     width: 0;
     opacity: 0;
@@ -288,16 +287,14 @@ div#amount {
 .rowWrapper:hover .btnDelete {
     width: 20px;
     opacity: 1;
-
-
-
 }
 
 .btnDelete {
     font-size: large;
     font-weight: 600;
     margin: auto;
-=======
+}
+
 #expences_rate {
     background: #ff7074;
     text-align: center;
@@ -311,5 +308,4 @@ div#amount {
 #income_rate {
     max-width: 40px;
     margin-left: 10px;
->>>>>>> 0a50d804e494d373dc16d4113c6c2df153e9832f
 }
