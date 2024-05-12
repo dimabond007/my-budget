@@ -17,19 +17,21 @@ let expenses_list = document.querySelector('#expenses_list');
 let arr_transaction = [];
 flagLoad = true;
 
-
-
 addTransactionsBtn.addEventListener('click', addTransactions);
 selectOperation.addEventListener("change", redGreenToggle)
 
+
+
+loadData();
 secondSectionJS.classList.add('greenSection');
 
 function addTransactions() {
+    let id_transaction = generate_id();
     if (selectOperation.value == '+') {
-        addIncome(descriptionOperation.value, valueOperation.value);
+        addIncome(id_transaction, descriptionOperation.value, valueOperation.value);
     }
     else if (selectOperation.value == '-') {
-        addExpenses(descriptionOperation.value, valueOperation.value);
+        addExpenses(id_transaction, descriptionOperation.value, valueOperation.value);
 
         expencesRate.innerHTML = procentOfIncome + '%';
     }
@@ -41,7 +43,26 @@ function addTransactions() {
     console.log(all_budget)
 }
 
-function addIncome(descVal, valOper) {
+function generate_id(){
+    let id = 0;
+
+    while(true){
+        let flag = true;
+        for(let i=0; i<arr_transaction.length; i++){
+            if(arr_transaction[i].id == id){
+                flag = false;
+                id++;
+                break;
+            }
+        }
+        if(flag){
+            return id;
+        }
+    }
+}
+
+
+function addIncome(id, descVal, valOper) {
     if (!flagLoad)
         addToLocalStorage();
 
@@ -51,6 +72,7 @@ function addIncome(descVal, valOper) {
 
     let new_row = document.createElement('div');
     new_row.className = 'rowWrapper';
+    new_row.dataset.id = id;
 
     let h2desc = document.createElement('div');
     h2desc.innerHTML = descVal;
@@ -62,10 +84,17 @@ function addIncome(descVal, valOper) {
     moneyincome.innerHTML = valOper + '$';
     new_row.appendChild(moneyincome);
 
+    let btnDelete = document.createElement('button');
+    btnDelete.className = 'btnDelete';
+    btnDelete.innerHTML = 'X';
+    btnDelete.dataset.id = id; 
+    btnDelete.addEventListener('click', deleteOperations);
+    new_row.appendChild(btnDelete);
+
     income_list.appendChild(new_row)
 }
 
-function addExpenses(descVal, valOper) {
+function addExpenses(id,descVal, valOper) {
     if (!flagLoad)
         addToLocalStorage();
 
@@ -74,30 +103,44 @@ function addExpenses(descVal, valOper) {
     procentOfIncome = Math.floor((expenses / income) * 100);
 
     ////
-    let newExpensesRow = document.createElement('div');
-    newExpensesRow.classList.add("rowWrapper");
-    expenses_list.appendChild(newExpensesRow);
+    let newRow = document.createElement('div');
+    newRow.classList.add("rowWrapper");
+    newRow.dataset.id = id;
 
     let textRightDiv = document.createElement("div");
     textRightDiv.innerHTML = descVal;
     textRightDiv.classList.add("headerH2");
-    newExpensesRow.appendChild(textRightDiv);
+    newRow.appendChild(textRightDiv);
 
     let expensesMoney = document.createElement("h3");
     expensesMoney.innerHTML = `${valOper} $`;
     expensesMoney.classList.add("money", "moneyExpenses");
-    newExpensesRow.appendChild(expensesMoney);
+    newRow.appendChild(expensesMoney);
 
     let precentageInARow = document.createElement("h3");
     precentageInARow.classList.add("precentage");
     precentageInARow.innerHTML = "15%";
-    newExpensesRow.appendChild(precentageInARow);
+    newRow.appendChild(precentageInARow);
 
+    let btnDelete = document.createElement('button');
+    btnDelete.className = 'btnDelete';
+    btnDelete.innerHTML = 'X';
+    btnDelete.dataset.id = id; 
+    btnDelete.addEventListener('click', deleteOperations);
+    newRow.appendChild(btnDelete);
 
+    expenses_list.appendChild(newRow);
+}
+
+function deleteOperations(event) {
+    
 }
 
 function addToLocalStorage() {
+    console.log(arr_transaction);
+    let id_oper = arr_transaction!=null ? arr_transaction.length + 1 : 0 ;
     let objTransaction = {
+        'id': id_oper,
         'operation': selectOperation.value,
         'value': valueOperation.value,
         'description': descriptionOperation.value
@@ -110,22 +153,29 @@ function addToLocalStorage() {
 function loadData() {
     flagLoad = true;
     let data = JSON.parse(localStorage.getItem('transaction'));
-    arr_transaction = data;
+    arr_transaction = data ? data : [];
+
     if (data) {
         for (let i = 0; i < data.length; i++) {
             if (data[i].operation == '+') {
-                addIncome(data[i].description, data[i].value);
+                addIncome(data[i].id, data[i].description, data[i].value);
 
             }
             else if (data[i].operation == '-') {
-                addExpenses(data[i].description, data[i].value);
+                addExpenses(data[i].id, data[i].description, data[i].value);
             }
         }
+        all_budget > 0? amount.innerHTML = '+' + formatter.format(all_budget) : amount.innerHTML = formatter.format(all_budget);
+        incomeValue.innerHTML = '+' + formatter.format(income);
+        expensesValue.innerHTML = '-' + formatter.format(expenses);
+        procentOfIncome = Math.floor((expenses / income) * 100);
+        expencesRate.innerHTML = procentOfIncome + '%';
+
+        console.log(all_budget)
     }
     flagLoad = false;
 }
 
-loadData();
 
 function redGreenToggle() {
     secondSectionJS.classList.toggle("greenSection");
