@@ -276,3 +276,24 @@ div#amount {
 .redSection .checkButton i {
     color: red;
 }
+
+.btnDelete {
+    width: 0;
+    opacity: 0;
+    transition: 0.4s;
+    margin: 5px;
+}
+
+.rowWrapper:hover .btnDelete {
+    width: 20px;
+    opacity: 1;
+
+
+
+}
+
+.btnDelete {
+    font-size: large;
+    font-weight: 600;
+    margin: auto;
+}
