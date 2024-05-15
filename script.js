@@ -34,9 +34,16 @@ function addTransactions() {
         expencesRate.innerHTML = procentOfIncome + '%';
     }
 
+    updateTotal();
+}
+
+function updateTotal(){
     all_budget > 0 ? amount.innerHTML = '+' + formatter.format(all_budget) : amount.innerHTML = formatter.format(all_budget);
     incomeValue.innerHTML = '+' + formatter.format(income);
     expensesValue.innerHTML = '-' + formatter.format(expenses);
+    procentOfIncome = Math.floor((expenses / income) * 100);
+    expencesRate.innerHTML = procentOfIncome + '%';
+
 }
 
 function generate_id() {
@@ -87,7 +94,10 @@ function addIncome(id, descVal, valOper) {
 
 
 
-    income_list.appendChild(new_row)
+    income_list.appendChild(new_row);
+
+    if (!flagLoad)
+        updatePercentages();
 }
 
 function addExpenses(id, descVal, valOper) {
@@ -96,6 +106,7 @@ function addExpenses(id, descVal, valOper) {
 
     all_budget -= Number(valOper);
     expenses += Number(valOper);
+
     procentOfIncome = Math.floor((expenses / income) * 100);
 
     ////
@@ -113,9 +124,11 @@ function addExpenses(id, descVal, valOper) {
     expensesMoney.classList.add("money", "moneyExpenses");
     newRow.appendChild(expensesMoney);
 
+    let percentage = getPercentage(valOper);
+
     let precentageInARow = document.createElement("h3");
     precentageInARow.classList.add("precentage");
-    precentageInARow.innerHTML = "15%";
+    precentageInARow.innerHTML = percentage+'%';
     newRow.appendChild(precentageInARow);
 
     let btnDelete = document.createElement('a');
@@ -131,24 +144,32 @@ function addExpenses(id, descVal, valOper) {
 }
 
 function deleteOperations(event) {
-
     let deleteId = this.dataset.id;
     let deleteRow = document.querySelector(`.rowWrapper[data-id="${deleteId}"]`)
 
-
     for (let i = 0; i < arr_transaction.length; i++) {
         if (arr_transaction[i].id == deleteId) {
+            if(arr_transaction[i].operation=="+"){
+                income -= arr_transaction[i].value;
+                all_budget -= arr_transaction[i].value;
+            }
+            else
+            {
+                expenses -= arr_transaction[i].value;
+                all_budget += arr_transaction[i].value;
+            }
             arr_transaction.splice(i, 1);
             break;
         }
     }
     localStorage.setItem('transaction', JSON.stringify(arr_transaction));
     deleteRow.remove();
-    console.log(deleteRow);
+    updateTotal();
+    updatePercentages()
 }
 
 function addToLocalStorage() {
-    console.log(arr_transaction);
+
     let id_oper = id_transaction;
     let objTransaction = {
         'id': id_oper,
@@ -159,6 +180,19 @@ function addToLocalStorage() {
     arr_transaction.push(objTransaction);
 
     localStorage.setItem('transaction', JSON.stringify(arr_transaction));
+}
+
+function getPercentage(pricePercent){
+    return Math.floor((100 * pricePercent) / income);
+}
+function updatePercentages(){
+    expenses_list_childs = document.querySelectorAll('#expenses_list .rowWrapper')
+
+    for (let i = 0; i < expenses_list_childs.length; i++) {
+
+        expenses_list_childs[i].querySelector('.precentage').innerHTML = getPercentage(expenses_list_childs[i].querySelector('.moneyExpenses').innerHTML.replace(/\D/g, ""))+'%';
+    }
+    
 }
 
 function loadData() {
@@ -175,13 +209,10 @@ function loadData() {
                 addExpenses(data[i].id, data[i].description, data[i].value);
             }
         }
-        all_budget > 0 ? amount.innerHTML = '+' + formatter.format(all_budget) : amount.innerHTML = formatter.format(all_budget);
-        incomeValue.innerHTML = '+' + formatter.format(income);
-        expensesValue.innerHTML = '-' + formatter.format(expenses);
-        procentOfIncome = Math.floor((expenses / income) * 100);
-        expencesRate.innerHTML = procentOfIncome + '%';
+        updateTotal();
     }
     flagLoad = false;
+    updatePercentages();
 }
 
 function redGreenToggle() {
