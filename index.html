@@ -39,7 +39,7 @@
             <option value="-">-</option>
         </select>
         <input type="text" placeholder="Add Description" id="descriptionOperation" class="description input">
-        <input type="number" placeholder="Value" id="valueOperation" class="value input">
+        <input type="number" placeholder="Value" id="valueOperation" class="value input" onkeydown="return event.keyCode !== 69">
         <button class="checkButton">
             <i class="fa-regular fa-circle-check"></i>
         </button>
