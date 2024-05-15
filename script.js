@@ -17,31 +17,44 @@ let income_list = document.querySelector('#income_list');
 let expenses_list = document.querySelector('#expenses_list');
 let arr_transaction = [];
 let id_transaction = 0;
-flagLoad = true;
+let flagLoad = true;
+
+const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
 
 addTransactionsBtn.addEventListener('click', addTransactions);
 selectOperation.addEventListener("change", redGreenToggle)
-
+startApp()
 loadData();
 secondSectionJS.classList.add('greenSection');
 
+function startApp(){
+    let datenow = new Date(Date.now());
+    let month = months[datenow.getMonth()];
+    let str_available = 'Available Budget in '+month+' '+datenow.getFullYear();
+    console.log(str_available);
+}
 function addTransactions() {
-    id_transaction = generate_id();
-    if (selectOperation.value == '+') {
-        addIncome(id_transaction, descriptionOperation.value, valueOperation.value);
-    } else if (selectOperation.value == '-') {
-        addExpenses(id_transaction, descriptionOperation.value, valueOperation.value);
-        expencesRate.innerHTML = procentOfIncome + '%';
+    if(descriptionOperation.value){
+        id_transaction = generate_id();
+        if (selectOperation.value == '+') {
+            addIncome(id_transaction, descriptionOperation.value, valueOperation.value);
+        } else if (selectOperation.value == '-') {
+            addExpenses(id_transaction, descriptionOperation.value, valueOperation.value);
+            expencesRate.innerHTML = procentOfIncome + '%';
+        }
+        updateTotal();
     }
-
-    updateTotal();
 }
 
 function updateTotal(){
     all_budget > 0 ? amount.innerHTML = '+' + formatter.format(all_budget) : amount.innerHTML = formatter.format(all_budget);
     incomeValue.innerHTML = '+' + formatter.format(income);
     expensesValue.innerHTML = '-' + formatter.format(expenses);
-    procentOfIncome = Math.floor((expenses / income) * 100);
+    if (income==0)
+        procentOfIncome = 0;
+    else
+        procentOfIncome = Math.floor((expenses / income) * 100);
     expencesRate.innerHTML = procentOfIncome + '%';
 
 }
@@ -120,7 +133,7 @@ function addExpenses(id, descVal, valOper) {
     newRow.appendChild(textRightDiv);
 
     let expensesMoney = document.createElement("h3");
-    expensesMoney.innerHTML = `${valOper} $`;
+    expensesMoney.innerHTML = `${valOper}$`;
     expensesMoney.classList.add("money", "moneyExpenses");
     newRow.appendChild(expensesMoney);
 
@@ -149,14 +162,18 @@ function deleteOperations(event) {
 
     for (let i = 0; i < arr_transaction.length; i++) {
         if (arr_transaction[i].id == deleteId) {
+            let valoftrans = Number(arr_transaction[i].value);
             if(arr_transaction[i].operation=="+"){
-                income -= arr_transaction[i].value;
-                all_budget -= arr_transaction[i].value;
+                income -= valoftrans;
+                all_budget -= valoftrans;
             }
             else
             {
-                expenses -= arr_transaction[i].value;
-                all_budget += arr_transaction[i].value;
+                console.log(arr_transaction[i].value);
+                console.log(all_budget);
+                
+                expenses -= valoftrans;
+                all_budget += valoftrans;
             }
             arr_transaction.splice(i, 1);
             break;
@@ -164,6 +181,7 @@ function deleteOperations(event) {
     }
     localStorage.setItem('transaction', JSON.stringify(arr_transaction));
     deleteRow.remove();
+    console.log(all_budget);
     updateTotal();
     updatePercentages()
 }
@@ -183,13 +201,15 @@ function addToLocalStorage() {
 }
 
 function getPercentage(pricePercent){
-    return Math.floor((100 * pricePercent) / income);
+    if (income == 0)
+        return 0;
+    else
+        return Math.floor((100 * pricePercent) / income);
 }
 function updatePercentages(){
     expenses_list_childs = document.querySelectorAll('#expenses_list .rowWrapper')
 
     for (let i = 0; i < expenses_list_childs.length; i++) {
-
         expenses_list_childs[i].querySelector('.precentage').innerHTML = getPercentage(expenses_list_childs[i].querySelector('.moneyExpenses').innerHTML.replace(/\D/g, ""))+'%';
     }
     
