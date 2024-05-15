@@ -102,7 +102,6 @@ div#amount {
     height: 37px;
     width: 50px;
     padding: 5px 5px 5px 10px;
-    border-style: none;
     border-radius: 5px;
     font-family: "Exo 2", sans-serif;
     font-optical-sizing: auto;
@@ -113,13 +112,17 @@ div#amount {
     background-repeat: no-repeat;
     background-position: right 0.5rem top 50%;
     background-size: 0.65rem auto;
+    border: 0;
+}
 
+.selectedPlusMinus:focus-visible {
+    border: none;
+    outline: none;
 }
 
 .description {
     width: 300px;
     height: 40px;
-    /* padding: 5px 5px 5px 10px; */
     border-radius: 5px;
     font-family: "Exo 2", sans-serif;
     font-optical-sizing: auto;
@@ -224,6 +227,12 @@ a.btnDelete i {
 
 .rowWrapper {
     display: flex;
+    border-bottom: 1px solid grey;
+}
+
+.rowWrapper:hover {
+    background-color: rgb(233, 233, 233);
+    border-radius: 5px;
 }
 
 .precentage {
@@ -334,5 +343,48 @@ a.btnDelete i {
     .btnDelete {
         padding: 0 3px 0 3px;
 
+    }
+
+    .selectedPlusMinus {
+        margin: 5px;
+    }
+}
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+}
+
+
+@media only screen and (max-width: 430px) {
+    .description input {
+        justify-content: space-between;
+    }
+
+    .thirdSection {
+        flex-direction: column;
+        align-items: center;
+
+    }
+
+    .secondSection {
+        display: flex;
+        align-items: center;
+    }
+
+    .leftDiv {
+        width: 300px;
+    }
+
+    .rightDiv {
+        width: 300px;
+
+    }
+
+    .selectedPlusMinus {
+        min-width: 50px;
     }
 }

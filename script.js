@@ -28,14 +28,14 @@ startApp()
 loadData();
 secondSectionJS.classList.add('greenSection');
 
-function startApp(){
+function startApp() {
     let datenow = new Date(Date.now());
     let month = months[datenow.getMonth()];
-    let str_available = 'Available Budget in '+month+' '+datenow.getFullYear();
+    let str_available = 'Available Budget in ' + month + ' ' + datenow.getFullYear();
     console.log(str_available);
 }
 function addTransactions() {
-    if(descriptionOperation.value){
+    if (descriptionOperation.value) {
         id_transaction = generate_id();
         if (selectOperation.value == '+') {
             addIncome(id_transaction, descriptionOperation.value, valueOperation.value);
@@ -51,7 +51,7 @@ function updateTotal() {
     all_budget > 0 ? amount.innerHTML = '+' + formatter.format(all_budget) : amount.innerHTML = formatter.format(all_budget);
     incomeValue.innerHTML = '+' + formatter.format(income);
     expensesValue.innerHTML = '-' + formatter.format(expenses);
-    if (income==0)
+    if (income == 0)
         procentOfIncome = 0;
     else
         procentOfIncome = Math.floor((expenses / income) * 100);
@@ -95,11 +95,11 @@ function addIncome(id, descVal, valOper) {
 
     let moneyincome = document.createElement('div');
     moneyincome.className = 'money moneyIncome';
-    moneyincome.innerHTML = valOper + '$';
+    moneyincome.innerHTML = formatter.format(valOper);
     new_row.appendChild(moneyincome);
 
     let btnDelete = document.createElement('a');
-    btnDelete.className = 'btnDelete';
+    btnDelete.className = 'btnDelete green';
     btnDelete.innerHTML = '<i class="fa-regular fa-circle-xmark"></i>';
     btnDelete.dataset.id = id;
     btnDelete.addEventListener('click', deleteOperations);
@@ -133,7 +133,7 @@ function addExpenses(id, descVal, valOper) {
     newRow.appendChild(textRightDiv);
 
     let expensesMoney = document.createElement("h3");
-    expensesMoney.innerHTML = `${valOper}$`;
+    expensesMoney.innerHTML = `${formatter.format(valOper)}`;
     expensesMoney.classList.add("money", "moneyExpenses");
     newRow.appendChild(expensesMoney);
 
@@ -145,10 +145,9 @@ function addExpenses(id, descVal, valOper) {
     newRow.appendChild(precentageInARow);
 
     let btnDelete = document.createElement('a');
-    btnDelete.className = 'btnDelete ';
+    btnDelete.className = 'btnDelete red';
     btnDelete.innerHTML = '<i class="fa-regular fa-circle-xmark"></i>';
     btnDelete.dataset.id = id;
-    btnDelete.className = 'btnDelete';
     btnDelete.addEventListener('click', deleteOperations);
     newRow.appendChild(btnDelete);
 
@@ -163,15 +162,14 @@ function deleteOperations(event) {
     for (let i = 0; i < arr_transaction.length; i++) {
         if (arr_transaction[i].id == deleteId) {
             let valoftrans = Number(arr_transaction[i].value);
-            if(arr_transaction[i].operation=="+"){
+            if (arr_transaction[i].operation == "+") {
                 income -= valoftrans;
                 all_budget -= valoftrans;
             }
-            else
-            {
+            else {
                 console.log(arr_transaction[i].value);
                 console.log(all_budget);
-                
+
                 expenses -= valoftrans;
                 all_budget += valoftrans;
             }
@@ -200,7 +198,7 @@ function addToLocalStorage() {
     localStorage.setItem('transaction', JSON.stringify(arr_transaction));
 }
 
-function getPercentage(pricePercent){
+function getPercentage(pricePercent) {
     if (income == 0)
         return 0;
     else
