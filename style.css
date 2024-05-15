@@ -4,6 +4,7 @@ body {
     font-optical-sizing: auto;
     font-weight: 200;
     font-style: normal;
+    user-select: none;
 }
 
 .available_section {
@@ -148,8 +149,13 @@ div#amount {
 
 }
 
-.fa-regular {
-    font-size: 30px;
+a.btnDelete i {
+    font-size: 1rem;
+}
+
+.checkButton i {
+    font-size: 1.8rem;
+
 }
 
 .thirdSection {
@@ -227,10 +233,12 @@ div#amount {
     border-radius: 5px;
     padding: 3px;
     font-size: small;
+    font-weight: 550;
+    color: red;
 }
 
 .money {
-    padding-left: 30px;
+    padding-left: 10px;
     display: flex;
     margin: 10px;
 
@@ -285,7 +293,7 @@ div#amount {
 }
 
 .rowWrapper:hover .btnDelete {
-    width: 20px;
+    width: 30px;
     opacity: 1;
 }
 
@@ -308,4 +316,23 @@ div#amount {
 #income_rate {
     max-width: 40px;
     margin-left: 10px;
+}
+
+@media only screen and (max-width: 580px) {
+    .precentage {
+        margin: auto;
+        padding: 0 5px 0 5px;
+
+    }
+
+    .moneyExpenses {
+        margin: auto;
+        padding: 0 5px 0 5px;
+
+    }
+
+    .btnDelete {
+        padding: 0 3px 0 3px;
+
+    }
 }

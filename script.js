@@ -37,7 +37,7 @@ function addTransactions() {
     updateTotal();
 }
 
-function updateTotal(){
+function updateTotal() {
     all_budget > 0 ? amount.innerHTML = '+' + formatter.format(all_budget) : amount.innerHTML = formatter.format(all_budget);
     incomeValue.innerHTML = '+' + formatter.format(income);
     expensesValue.innerHTML = '-' + formatter.format(expenses);
@@ -120,7 +120,7 @@ function addExpenses(id, descVal, valOper) {
     newRow.appendChild(textRightDiv);
 
     let expensesMoney = document.createElement("h3");
-    expensesMoney.innerHTML = `${valOper} $`;
+    expensesMoney.innerHTML = `${valOper}$`;
     expensesMoney.classList.add("money", "moneyExpenses");
     newRow.appendChild(expensesMoney);
 
@@ -128,7 +128,7 @@ function addExpenses(id, descVal, valOper) {
 
     let precentageInARow = document.createElement("h3");
     precentageInARow.classList.add("precentage");
-    precentageInARow.innerHTML = percentage+'%';
+    precentageInARow.innerHTML = percentage + '%';
     newRow.appendChild(precentageInARow);
 
     let btnDelete = document.createElement('a');
@@ -149,12 +149,11 @@ function deleteOperations(event) {
 
     for (let i = 0; i < arr_transaction.length; i++) {
         if (arr_transaction[i].id == deleteId) {
-            if(arr_transaction[i].operation=="+"){
+            if (arr_transaction[i].operation == "+") {
                 income -= arr_transaction[i].value;
                 all_budget -= arr_transaction[i].value;
             }
-            else
-            {
+            else {
                 expenses -= arr_transaction[i].value;
                 all_budget += arr_transaction[i].value;
             }
@@ -182,17 +181,17 @@ function addToLocalStorage() {
     localStorage.setItem('transaction', JSON.stringify(arr_transaction));
 }
 
-function getPercentage(pricePercent){
+function getPercentage(pricePercent) {
     return Math.floor((100 * pricePercent) / income);
 }
-function updatePercentages(){
+function updatePercentages() {
     expenses_list_childs = document.querySelectorAll('#expenses_list .rowWrapper')
 
     for (let i = 0; i < expenses_list_childs.length; i++) {
 
-        expenses_list_childs[i].querySelector('.precentage').innerHTML = getPercentage(expenses_list_childs[i].querySelector('.moneyExpenses').innerHTML.replace(/\D/g, ""))+'%';
+        expenses_list_childs[i].querySelector('.precentage').innerHTML = getPercentage(expenses_list_childs[i].querySelector('.moneyExpenses').innerHTML.replace(/\D/g, "")) + '%';
     }
-    
+
 }
 
 function loadData() {
